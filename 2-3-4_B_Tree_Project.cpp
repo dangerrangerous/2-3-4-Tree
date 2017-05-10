@@ -26,10 +26,15 @@
 // See the LaFore text. Also implement Inorder, Preorder, and Postorder tree traversal  operators recursively.  
 // When the traversal operator visits a node, it should output all node key values. 
 #include "stdafx.h"
-
+#include "2-3-4_B_Tree.h"
 
 int main()
 {
+	DataItem dataItem;
+	dataItem.data = 2;
+
+	dataItem.DisplayItem();
+
     return 0;
 }
 

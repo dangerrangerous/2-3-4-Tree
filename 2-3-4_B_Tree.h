@@ -6,6 +6,12 @@ class DataItem
 public:
 	// should the data be private?
 	long data;
+
+	// prev
+
+	// next
+
+
 	// Default constructor
 	DataItem(void);
 
@@ -15,34 +21,31 @@ public:
 	void DisplayItem();
 };
 
-class Node
+class TwoThreeFourNode
 {
 public:
 	// Default constructor
-	Node(void);
+	TwoThreeFourNode(void);
 
 	// Default destructor
-	~Node(void);
+	~TwoThreeFourNode(void);
 
-	void ConnectChild(int childNum, Node child);
-	Node* DisconnectChild(int childNum);
-	Node* GetChild(int childNum);
-	Node* GetParent();
+	/*
+	void ConnectChild(int childNum, TwoThreeFourNode child);
+	TwoThreeFourNode* DisconnectChild(int childNum);
+	TwoThreeFourNode* GetChild(int childNum);
+	TwoThreeFourNode* GetParent();
 	int GetNumItems();
-
-	int InsertItem(DataItem newItem);
+	*/
+	int InsertItem(DataItem* newItem);
+	void DisplayNode();
 	
-	Node *parent;
-
-
-
-
 private:
 	static const int ORDER = 4;
 	int numItems;
-	Node* parent;
+	TwoThreeFourNode* parent;
 
-	DataItem dataItemArray[ORDER - 1];
-	Node* childArray[ORDER];
+	DataItem* dataItemArray[ORDER - 1];
+	TwoThreeFourNode* childArray[ORDER];
 
 };

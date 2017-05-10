@@ -27,6 +27,7 @@
 // When the traversal operator visits a node, it should output all node key values. 
 #include "stdafx.h"
 #include "2-3-4_B_Tree.h"
+#include <iostream>
 
 int main()
 {
@@ -34,6 +35,14 @@ int main()
 	dataItem.data = 2;
 
 	dataItem.DisplayItem();
+	
+	DataItem* dataPtr;
+	dataPtr = &dataItem;
+	TwoThreeFourNode node1;
+	node1.InsertItem(dataPtr);
+	node1.InsertItem(dataPtr);
+
+	node1.DisplayNode();
 
     return 0;
 }

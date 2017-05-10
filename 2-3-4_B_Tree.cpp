@@ -4,9 +4,9 @@
 #include "2-3-4_B_Tree.h"
 #include <iostream>
 
-// DataItem
 using namespace std;
 
+// Data Item ----------/
 // Default constructor
 DataItem::DataItem(void)
 {
@@ -23,4 +23,22 @@ DataItem::~DataItem(void)
 void DataItem::DisplayItem()
 {
 	cout << "Data: " << data << " ";
+}
+// end DataItem -------------------/
+
+// Node -------/
+Node::Node(void)
+{
+	//
+}
+
+Node::~Node(void)
+{
+	// DestroyNode();
+}
+
+int Node::InsertItem(DataItem inItem)
+{
+	numItems++;
+	long newKey = inItem.data;
 }

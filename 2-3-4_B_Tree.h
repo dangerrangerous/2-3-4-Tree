@@ -18,25 +18,31 @@ public:
 class Node
 {
 public:
+	// Default constructor
+	Node(void);
+
+	// Default destructor
+	~Node(void);
+
 	void ConnectChild(int childNum, Node child);
 	Node* DisconnectChild(int childNum);
 	Node* GetChild(int childNum);
 	Node* GetParent();
 	int GetNumItems();
 
-	int insertItem(DataItem newItem);
-
+	int InsertItem(DataItem newItem);
+	
+	Node *parent;
 
 
 
 
 private:
-	const int ORDER = 4;
+	static const int ORDER = 4;
 	int numItems;
 	Node* parent;
-	// TODO: clean up java syntax
-	// Node* childArray[] = new Node[ORDER];
-	// DataItem dataItemArray[] = new DataItem[ORDER - 1];
 
+	DataItem dataItemArray[ORDER - 1];
+	Node* childArray[ORDER];
 
 };

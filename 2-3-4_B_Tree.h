@@ -35,9 +35,9 @@ public:
 	TwoThreeFourNode* DisconnectChild(int childNum);
 	TwoThreeFourNode* GetChild(int childNum);
 	TwoThreeFourNode* GetParent();
-	int GetNumItems();
 	*/
 	int InsertItem(DataItem* newItem);
+	int GetNumItems();
 	void DisplayNode();
 	
 private:

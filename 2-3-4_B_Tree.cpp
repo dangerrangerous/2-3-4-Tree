@@ -75,6 +75,14 @@ int TwoThreeFourNode::InsertItem(DataItem* inItem)
 	return 0;
 } // end InsertItem()
 
+int TwoThreeFourNode::GetNumItems()
+{
+	// for testing
+	cout << "GetNumItems() returned " << numItems << endl;
+
+	return numItems;
+}
+
 void TwoThreeFourNode::DisplayNode()
 {
 	for (int i = 0; i < numItems; i++)

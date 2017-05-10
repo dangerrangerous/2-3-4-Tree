@@ -44,6 +44,8 @@ int main()
 
 	node1.DisplayNode();
 
+	node1.GetNumItems();
+
     return 0;
 }
 

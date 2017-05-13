@@ -75,6 +75,24 @@ int TwoThreeFourNode::InsertItem(DataItem* inItem)
 	return 0;
 } // end InsertItem()
 
+// Connect child node to this node
+void TwoThreeFourNode::ConnectChild(int childNum, TwoThreeFourNode child)
+{
+	// test this
+	childArray[childNum] = &child;
+
+	if (&child != nullptr)
+	{
+		child.parent = this;
+	}
+} // end ConnectChild()
+
+
+
+
+
+
+
 int TwoThreeFourNode::GetNumItems()
 {
 	// for testing

@@ -30,9 +30,12 @@ public:
 	// Default destructor
 	~TwoThreeFourNode(void);
 
-	/*
+	
 	void ConnectChild(int childNum, TwoThreeFourNode child);
+	
 	TwoThreeFourNode* DisconnectChild(int childNum);
+	
+	/*
 	TwoThreeFourNode* GetChild(int childNum);
 	TwoThreeFourNode* GetParent();
 	*/

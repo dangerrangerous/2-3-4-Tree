@@ -34,17 +34,29 @@ int main()
 	DataItem dataItem;
 	dataItem.data = 2;
 
+	DataItem dataItem2;
+	dataItem2.data = 5;
+
 	dataItem.DisplayItem();
 	
-	DataItem* dataPtr;
-	dataPtr = &dataItem;
+	DataItem* dataPtr = &dataItem;
+
+	DataItem* dataPtr2 = &dataItem2;
+
 	TwoThreeFourNode node1;
+	TwoThreeFourNode node2;
+
 	node1.InsertItem(dataPtr);
 	node1.InsertItem(dataPtr);
+
+	node2.InsertItem(dataPtr2);
 
 	node1.DisplayNode();
 
 	node1.GetNumItems();
+
+	node1.ConnectChild(1, node2);
+
 
     return 0;
 }

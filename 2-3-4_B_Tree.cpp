@@ -87,7 +87,14 @@ void TwoThreeFourNode::ConnectChild(int childNum, TwoThreeFourNode child)
 	}
 } // end ConnectChild()
 
-
+// smelly syntax.
+TwoThreeFourNode* TwoThreeFourNode::DisconnectChild(int childNum)
+{
+	TwoThreeFourNode tempNode = *childArray[childNum];
+	childArray[childNum] = nullptr;
+	
+	return &tempNode;
+}
 
 
 

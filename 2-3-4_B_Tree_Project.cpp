@@ -36,26 +36,42 @@ int main()
 
 	DataItem dataItem2;
 	dataItem2.data = 5;
+	
+	DataItem dataItem3;
+	dataItem3.data = 7;
+
 
 	dataItem.DisplayItem();
 	
 	DataItem* dataPtr = &dataItem;
 
 	DataItem* dataPtr2 = &dataItem2;
-
+	
+	DataItem* dataPtr3 = &dataItem3;
+	
 	TwoThreeFourNode node1;
 	TwoThreeFourNode node2;
+	TwoThreeFourNode node3;
 
 	node1.InsertItem(dataPtr);
 	node1.InsertItem(dataPtr);
+
 
 	node2.InsertItem(dataPtr2);
+	node2.InsertItem(dataPtr3);
+
+	node3.InsertItem(dataPtr);
+	node3.InsertItem(dataPtr2);
+	node3.InsertItem(dataPtr3);
 
 	node1.DisplayNode();
 
 	node1.GetNumItems();
 
 	node1.ConnectChild(1, node2);
+	node2.ConnectChild(0, node3);
+
+	node2.DisconnectChild(0);
 
 
     return 0;

@@ -31,17 +31,20 @@ public:
 	~TwoThreeFourNode(void);
 
 	
-	void ConnectChild(int childNum, TwoThreeFourNode child);
+	void ConnectChild(int childNum, TwoThreeFourNode* child);
 	
-	TwoThreeFourNode* DisconnectChild(int childNum);
+	TwoThreeFourNode DisconnectChild(int childNum);
 	
-	/*
-	TwoThreeFourNode* GetChild(int childNum);
-	TwoThreeFourNode* GetParent();
-	*/
+	TwoThreeFourNode GetChild(int childNum);
+	TwoThreeFourNode GetParent();
+
 	int InsertItem(DataItem* newItem);
 	int GetNumItems();
 	void DisplayNode();
+	bool b_IsLeaf();
+	
+	DataItem GetItem(int index);
+
 	
 private:
 	static const int ORDER = 4;

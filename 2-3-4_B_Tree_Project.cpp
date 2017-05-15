@@ -29,6 +29,8 @@
 #include "2-3-4_B_Tree.h"
 #include <iostream>
 
+using namespace std;
+
 int main()
 {
 	DataItem dataItem;
@@ -53,26 +55,70 @@ int main()
 	TwoThreeFourNode node2;
 	TwoThreeFourNode node3;
 
-	node1.InsertItem(dataPtr);
-	node1.InsertItem(dataPtr);
+	TwoThreeFourNode* node1Ptr = &node1;
+	TwoThreeFourNode* node2Ptr = &node2;
+	TwoThreeFourNode* node3Ptr = &node3;
+
+	node1Ptr->InsertItem(dataPtr);
+	node1Ptr->InsertItem(dataPtr);
 
 
-	node2.InsertItem(dataPtr2);
-	node2.InsertItem(dataPtr3);
+	node2Ptr->InsertItem(dataPtr2);
+	node2Ptr->InsertItem(dataPtr3);
+	cout << "node2ptr node: " << endl;
+	node2Ptr->DisplayNode();
 
-	node3.InsertItem(dataPtr);
-	node3.InsertItem(dataPtr2);
-	node3.InsertItem(dataPtr3);
+	node3Ptr->InsertItem(dataPtr);
+	node3Ptr->InsertItem(dataPtr2);
+	node3Ptr->InsertItem(dataPtr3);
+	cout << "node3ptr node: " << endl;
+	node3Ptr->DisplayNode();
+	cout << endl;
 
-	node1.DisplayNode();
+	cout << "node1Ptr node: " << endl;
+	node1Ptr->DisplayNode();
+	cout << endl;
 
-	node1.GetNumItems();
+	cout << "node1ptr GetNumItems(): " << endl;
+	node1Ptr->GetNumItems();
+	cout << endl;
 
-	node1.ConnectChild(1, node2);
-	node2.ConnectChild(0, node3);
+	node1Ptr->ConnectChild(1, node2Ptr);
+	node2Ptr->ConnectChild(0, node3Ptr);
 
-	node2.DisconnectChild(0);
+	// messy checks
+	TwoThreeFourNode node2child = node2Ptr->GetChild(0);
+	TwoThreeFourNode node2parent = node2Ptr->GetParent();
+	TwoThreeFourNode node1child = node1Ptr->GetChild(1);
 
+	cout << "node2 parent: " << endl;
+	node2parent.DisplayNode();
+	cout << endl;
+
+	cout << "node2 child[0]: " << endl;
+	node2child.DisplayNode();
+	cout << endl;
+
+	// disconnect node 3 from node 2
+	node2Ptr->DisconnectChild(0);
+
+	// should throw error as node2child no longer points to anything.
+	// create error handling
+	cout << "node2 child[0] after Disconnect: " << endl;
+	// node2child should be node3, calling node3 get child would point to non
+	// existant node4. returns null, pass.
+	node2child.GetChild(0);
+	node1child.GetChild(0);
+	cout << "node1child DisplayNode()" << endl;
+	node1child.DisplayNode();
+	cout << endl;
+	// node 2 child SHOULD point to node 3
+	node2child.DisplayNode();
+
+	node2Ptr->b_IsLeaf();
+	node3Ptr->b_IsLeaf();
+
+	node2.GetItem(1);
 
     return 0;
 }

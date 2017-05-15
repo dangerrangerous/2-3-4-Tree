@@ -76,33 +76,51 @@ int TwoThreeFourNode::InsertItem(DataItem* inItem)
 } // end InsertItem()
 
 // Connect child node to this node
-void TwoThreeFourNode::ConnectChild(int childNum, TwoThreeFourNode child)
+void TwoThreeFourNode::ConnectChild(int childNum, TwoThreeFourNode* child)
 {
 	// test this
-	childArray[childNum] = &child;
+	childArray[childNum] = child;
 
-	if (&child != nullptr)
+	if (child != nullptr)
 	{
-		child.parent = this;
+		child->parent = this;
 	}
 } // end ConnectChild()
 
 // smelly syntax.
-TwoThreeFourNode* TwoThreeFourNode::DisconnectChild(int childNum)
+// NOTE: This clears the child array of the node but the disconnected node still
+// contains a pointer to parent... which we may want to remove.
+TwoThreeFourNode TwoThreeFourNode::DisconnectChild(int childNum)
 {
 	TwoThreeFourNode tempNode = *childArray[childNum];
 	childArray[childNum] = nullptr;
 	
-	return &tempNode;
+	return tempNode;
 }
 
+TwoThreeFourNode TwoThreeFourNode::GetChild(int childNum)
+{
+	if (childArray[childNum] != nullptr)
+	{
+		return *childArray[childNum];
+	}
+	else
+	{
+		cout << "child is null" << endl;
+		
+	}
+}
 
-
+TwoThreeFourNode TwoThreeFourNode::GetParent()
+{
+	// parent isn't currently pointing to anything need to fix.
+	return *parent;
+}
 
 
 int TwoThreeFourNode::GetNumItems()
 {
-	// for testing
+	//  testing
 	cout << "GetNumItems() returned " << numItems << endl;
 
 	return numItems;
@@ -114,4 +132,15 @@ void TwoThreeFourNode::DisplayNode()
 	{
 		dataItemArray[i]->DisplayItem();
 	}
+}
+
+// NOTE: this can potentially return true when a node isn't connected...
+bool TwoThreeFourNode::b_IsLeaf()
+{
+	return (childArray[0] == nullptr) ? true : false;
+}
+
+DataItem TwoThreeFourNode::GetItem(int index)
+{
+	return *dataItemArray[index];
 }

@@ -39,6 +39,7 @@ public:
 	TwoThreeFourNode GetParent();
 
 	int InsertItem(DataItem* newItem);
+	DataItem RemoveItem();
 	int GetNumItems();
 	int FindItem(long key);
 	void DisplayNode();

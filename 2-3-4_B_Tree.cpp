@@ -75,6 +75,17 @@ int TwoThreeFourNode::InsertItem(DataItem* inItem)
 	return 0;
 } // end InsertItem()
 
+// removes largest item 
+DataItem TwoThreeFourNode::RemoveItem()
+{
+	// assumes node is not empty
+	DataItem temp = *dataItemArray[numItems - 1];
+	dataItemArray[numItems - 1] = nullptr;
+	numItems--;
+
+	return temp;
+}
+
 // Connect child node to this node
 void TwoThreeFourNode::ConnectChild(int childNum, TwoThreeFourNode* child)
 {
@@ -168,3 +179,4 @@ bool TwoThreeFourNode::b_IsFull()
 {
 	return (numItems == ORDER - 1) ? true : false;
 }
+

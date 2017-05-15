@@ -122,6 +122,8 @@ int main()
 
 	node2.FindItem(7);
 
+	node3.RemoveItem();
+
     return 0;
 }
 

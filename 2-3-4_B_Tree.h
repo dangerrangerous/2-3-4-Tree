@@ -40,9 +40,11 @@ public:
 
 	int InsertItem(DataItem* newItem);
 	int GetNumItems();
+	int FindItem(long key);
 	void DisplayNode();
 	bool b_IsLeaf();
-	
+	bool b_IsFull();
+
 	DataItem GetItem(int index);
 
 	

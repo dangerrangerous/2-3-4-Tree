@@ -120,6 +120,8 @@ int main()
 
 	node2.GetItem(1);
 
+	node2.FindItem(7);
+
     return 0;
 }
 

@@ -126,6 +126,25 @@ int TwoThreeFourNode::GetNumItems()
 	return numItems;
 }
 
+int TwoThreeFourNode::FindItem(long key)
+{
+	for (int i = 0; i <= ORDER - 1; i++)
+	{
+		if (dataItemArray[i] == nullptr)
+		{
+			// if dataItemArray[0] is nullptr, we are at a leaf and there will
+			// not be a dataItemArray[1]
+			break;
+		}
+		else if (dataItemArray[i]->data == key)
+		{
+			return dataItemArray[i]->data;
+		}
+	}
+
+	return -1;
+}
+
 void TwoThreeFourNode::DisplayNode()
 {
 	for (int i = 0; i < numItems; i++)
@@ -143,4 +162,9 @@ bool TwoThreeFourNode::b_IsLeaf()
 DataItem TwoThreeFourNode::GetItem(int index)
 {
 	return *dataItemArray[index];
+}
+
+bool TwoThreeFourNode::b_IsFull()
+{
+	return (numItems == ORDER - 1) ? true : false;
 }

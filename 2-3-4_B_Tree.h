@@ -35,8 +35,8 @@ public:
 	
 	TwoThreeFourNode DisconnectChild(int childNum);
 	
-	TwoThreeFourNode GetChild(int childNum);
-	TwoThreeFourNode GetParent();
+	TwoThreeFourNode* GetChild(int childNum);
+	TwoThreeFourNode* GetParent();
 
 	int InsertItem(DataItem* newItem);
 	DataItem RemoveItem();
@@ -57,4 +57,15 @@ private:
 	DataItem* dataItemArray[ORDER - 1];
 	TwoThreeFourNode* childArray[ORDER];
 
+};
+
+class Tree234
+{
+public:
+
+	int Find(long key);
+	TwoThreeFourNode* GetNextChild(TwoThreeFourNode* inNode, long inValue);
+private:
+	// double check that new is handled
+	TwoThreeFourNode *root = new TwoThreeFourNode();
 };

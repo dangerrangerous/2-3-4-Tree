@@ -109,11 +109,11 @@ TwoThreeFourNode TwoThreeFourNode::DisconnectChild(int childNum)
 	return tempNode;
 }
 
-TwoThreeFourNode TwoThreeFourNode::GetChild(int childNum)
+TwoThreeFourNode* TwoThreeFourNode::GetChild(int childNum)
 {
 	if (childArray[childNum] != nullptr)
 	{
-		return *childArray[childNum];
+		return childArray[childNum];
 	}
 	else
 	{
@@ -122,10 +122,10 @@ TwoThreeFourNode TwoThreeFourNode::GetChild(int childNum)
 	}
 }
 
-TwoThreeFourNode TwoThreeFourNode::GetParent()
+TwoThreeFourNode* TwoThreeFourNode::GetParent()
 {
 	// parent isn't currently pointing to anything need to fix.
-	return *parent;
+	return parent;
 }
 
 
@@ -180,3 +180,44 @@ bool TwoThreeFourNode::b_IsFull()
 	return (numItems == ORDER - 1) ? true : false;
 }
 
+// ===============================================
+// Tree234
+// =======
+int Tree234::Find(long key)
+{
+	TwoThreeFourNode* current = root;
+	int childNumber;
+	
+	while (true)
+	{
+		// if found
+		if (childNumber = current->FindItem(key) != -1)
+		{
+			return childNumber;
+		}
+		// can't find it
+		else if (current->b_IsLeaf())
+		{
+			return -1;
+		}
+		// search deeper
+		else
+		{
+			current = GetNextChild(current, key);
+		}
+	} // end while
+} // end Find()
+
+TwoThreeFourNode* Tree234::GetNextChild(TwoThreeFourNode* inNode, long inValue)
+{
+	// assumes node is not empty and not a leaf
+	int numItems = inNode->GetNumItems();
+
+	for (int j = 0; j < numItems; j++)
+	{
+		if (inValue < inNode->GetItem(j).data)
+		{
+			return inNode->GetChild(j);
+		}
+	}
+}

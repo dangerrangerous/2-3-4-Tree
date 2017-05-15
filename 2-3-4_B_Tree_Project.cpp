@@ -87,16 +87,16 @@ int main()
 	node2Ptr->ConnectChild(0, node3Ptr);
 
 	// messy checks
-	TwoThreeFourNode node2child = node2Ptr->GetChild(0);
-	TwoThreeFourNode node2parent = node2Ptr->GetParent();
-	TwoThreeFourNode node1child = node1Ptr->GetChild(1);
+	TwoThreeFourNode* node2child = node2Ptr->GetChild(0);
+	TwoThreeFourNode* node2parent = node2Ptr->GetParent();
+	TwoThreeFourNode* node1child = node1Ptr->GetChild(1);
 
 	cout << "node2 parent: " << endl;
-	node2parent.DisplayNode();
+	node2parent->DisplayNode();
 	cout << endl;
 
 	cout << "node2 child[0]: " << endl;
-	node2child.DisplayNode();
+	node2child->DisplayNode();
 	cout << endl;
 
 	// disconnect node 3 from node 2
@@ -107,13 +107,13 @@ int main()
 	cout << "node2 child[0] after Disconnect: " << endl;
 	// node2child should be node3, calling node3 get child would point to non
 	// existant node4. returns null, pass.
-	node2child.GetChild(0);
-	node1child.GetChild(0);
+	node2child->GetChild(0);
+	node1child->GetChild(0);
 	cout << "node1child DisplayNode()" << endl;
-	node1child.DisplayNode();
+	node1child->DisplayNode();
 	cout << endl;
 	// node 2 child SHOULD point to node 3
-	node2child.DisplayNode();
+	node2child->DisplayNode();
 
 	node2Ptr->b_IsLeaf();
 	node3Ptr->b_IsLeaf();

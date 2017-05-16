@@ -33,6 +33,8 @@ using namespace std;
 
 int main()
 {
+	Tree234 Tree234;
+
 	DataItem dataItem;
 	dataItem.data = 2;
 

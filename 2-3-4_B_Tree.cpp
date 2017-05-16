@@ -76,10 +76,10 @@ int TwoThreeFourNode::InsertItem(DataItem* inItem)
 } // end InsertItem()
 
 // removes largest item 
-DataItem TwoThreeFourNode::RemoveItem()
+DataItem* TwoThreeFourNode::RemoveItem()
 {
 	// assumes node is not empty
-	DataItem temp = *dataItemArray[numItems - 1];
+	DataItem* temp = dataItemArray[numItems - 1];
 	dataItemArray[numItems - 1] = nullptr;
 	numItems--;
 
@@ -118,7 +118,7 @@ TwoThreeFourNode* TwoThreeFourNode::GetChild(int childNum)
 	else
 	{
 		cout << "child is null" << endl;
-		
+		// return something
 	}
 }
 
@@ -183,6 +183,18 @@ bool TwoThreeFourNode::b_IsFull()
 // ===============================================
 // Tree234
 // =======
+
+Tree234::Tree234(void)
+{
+	root = nullptr;
+}
+
+Tree234::~Tree234(void)
+{
+	cout << "Destroying tree." << endl;
+	// DestroyTree();
+}
+
 int Tree234::Find(long key)
 {
 	TwoThreeFourNode* current = root;
@@ -208,6 +220,93 @@ int Tree234::Find(long key)
 	} // end while
 } // end Find()
 
+void Tree234::Insert(long dataValue)
+{
+	TwoThreeFourNode* current = root;
+	DataItem* tempDataItem = nullptr; 
+	tempDataItem->data = dataValue;
+
+	while (true)
+	{
+		// if node is full, split it
+		if (current->b_IsFull())
+		{
+			// split
+			Split(current);
+			// back up one level
+			current = current->GetParent();
+			// search
+			current = GetNextChild(current, dataValue);
+		}
+		// else if node is leaf, go insert
+		else if (current->b_IsLeaf())
+		{
+			break;
+		}
+		else
+		{
+			// else node is not full and not a leaf
+			// go to next level
+			current = GetNextChild(current, dataValue);
+		}
+		
+		current->InsertItem(tempDataItem);
+	}
+} // end Insert()
+
+void Tree234::Split(TwoThreeFourNode* inNode)
+{
+	// assume node is full
+	DataItem* itemB;
+	DataItem* itemC;
+	TwoThreeFourNode* parent;
+	TwoThreeFourNode* child2;
+	TwoThreeFourNode* child3;
+
+	int itemIndex;
+
+	// remove items from node
+	itemC = inNode->RemoveItem();
+	itemB = inNode->RemoveItem();
+	// remove children
+	child2 = &inNode->DisconnectChild(2);
+	child3 = &inNode->DisconnectChild(3);
+
+	// make new node
+	TwoThreeFourNode newRight;
+	TwoThreeFourNode* newRightPtr = &newRight;
+
+	if (inNode == root)
+	{
+		// create new node and have root point to it
+		root = new TwoThreeFourNode;
+		parent = root;
+		root->ConnectChild(0, inNode);
+	}
+	else
+	{
+		parent = inNode->GetParent();
+	}
+
+	itemIndex = parent->InsertItem(itemB);
+	int numParentItems = parent->GetNumItems();
+
+	for (int i = numParentItems - 1; i > itemIndex; i++)
+	{
+		TwoThreeFourNode* temp = &parent->DisconnectChild(i);
+		parent->ConnectChild(i + 1, temp);
+	}
+
+	// connect newRight to parent
+	parent->ConnectChild(itemIndex + 1, newRightPtr);
+
+	// handle new right
+	newRight.InsertItem(itemC);
+	newRight.ConnectChild(0, child2);
+	newRight.ConnectChild(1, child3);
+} // end Split()
+
+
 TwoThreeFourNode* Tree234::GetNextChild(TwoThreeFourNode* inNode, long inValue)
 {
 	// assumes node is not empty and not a leaf
@@ -220,4 +319,6 @@ TwoThreeFourNode* Tree234::GetNextChild(TwoThreeFourNode* inNode, long inValue)
 			return inNode->GetChild(j);
 		}
 	}
-}
+} // end GetNextChild()
+
+

@@ -39,7 +39,7 @@ public:
 	TwoThreeFourNode* GetParent();
 
 	int InsertItem(DataItem* newItem);
-	DataItem RemoveItem();
+	DataItem* RemoveItem();
 	int GetNumItems();
 	int FindItem(long key);
 	void DisplayNode();
@@ -62,10 +62,17 @@ private:
 class Tree234
 {
 public:
+	// Default constructor
+	Tree234(void);
+	// Default destructor
+	~Tree234(void);
 
 	int Find(long key);
+	void Insert(long dataValue);
+	void Split(TwoThreeFourNode* inNode);
 	TwoThreeFourNode* GetNextChild(TwoThreeFourNode* inNode, long inValue);
 private:
 	// double check that new is handled
-	TwoThreeFourNode *root = new TwoThreeFourNode();
+	// I don't really like the syntax for root
+	TwoThreeFourNode* root = new TwoThreeFourNode();
 };

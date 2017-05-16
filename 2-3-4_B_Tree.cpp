@@ -186,7 +186,7 @@ bool TwoThreeFourNode::b_IsFull()
 
 Tree234::Tree234(void)
 {
-	root = nullptr;
+	root = new TwoThreeFourNode;
 }
 
 Tree234::~Tree234(void)
@@ -223,8 +223,10 @@ int Tree234::Find(long key)
 void Tree234::Insert(long dataValue)
 {
 	TwoThreeFourNode* current = root;
-	DataItem* tempDataItem = nullptr; 
-	tempDataItem->data = dataValue;
+	DataItem tempDataItem; 
+	tempDataItem.data = dataValue;
+	DataItem* tempDataItemPtr = &tempDataItem;
+
 
 	while (true)
 	{
@@ -250,7 +252,7 @@ void Tree234::Insert(long dataValue)
 			current = GetNextChild(current, dataValue);
 		}
 		
-		current->InsertItem(tempDataItem);
+		current->InsertItem(tempDataItemPtr);
 	}
 } // end Insert()
 

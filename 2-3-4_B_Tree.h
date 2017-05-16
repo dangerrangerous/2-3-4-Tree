@@ -74,5 +74,5 @@ public:
 private:
 	// double check that new is handled
 	// I don't really like the syntax for root
-	TwoThreeFourNode* root = new TwoThreeFourNode();
+	TwoThreeFourNode* root;
 };

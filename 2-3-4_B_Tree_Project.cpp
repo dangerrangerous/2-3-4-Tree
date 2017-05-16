@@ -33,7 +33,7 @@ using namespace std;
 
 int main()
 {
-	Tree234 Tree234;
+	Tree234 tree234;
 
 	DataItem dataItem;
 	dataItem.data = 2;
@@ -125,6 +125,12 @@ int main()
 	node2.FindItem(7);
 
 	node3.RemoveItem();
+
+	tree234.Insert(1);
+	tree234.Insert(2);
+	tree234.Insert(3);
+	tree234.Insert(4);
+	tree234.Insert(5);
 
     return 0;
 }

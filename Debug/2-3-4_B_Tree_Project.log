@@ -1,9 +1,8 @@
 ﻿  2-3-4_B_Tree.cpp
   Generating Code...
 c:\users\brian\onedrive\documents\visual studio 2015\projects\2-3-4_b_tree_project\2-3-4_b_tree_project\2-3-4_b_tree.cpp(123): warning C4715: 'TwoThreeFourNode::GetChild': not all control paths return a value
-c:\users\brian\onedrive\documents\visual studio 2015\projects\2-3-4_b_tree_project\2-3-4_b_tree_project\2-3-4_b_tree.cpp(322): warning C4715: 'Tree234::GetNextChild': not all control paths return a value
-  Compiling...
+c:\users\brian\onedrive\documents\visual studio 2015\projects\2-3-4_b_tree_project\2-3-4_b_tree_project\2-3-4_b_tree.cpp(324): warning C4715: 'Tree234::GetNextChild': not all control paths return a value
+  Skipping... (no relevant changes detected)
   2-3-4_B_Tree_Project.cpp
-  Generating Code...
   2-3-4_B_Tree_Project.vcxproj -> C:\Users\Brian\onedrive\documents\visual studio 2015\Projects\2-3-4_B_Tree_Project\Debug\2-3-4_B_Tree_Project.exe
   2-3-4_B_Tree_Project.vcxproj -> C:\Users\Brian\onedrive\documents\visual studio 2015\Projects\2-3-4_B_Tree_Project\Debug\2-3-4_B_Tree_Project.pdb (Full PDB)

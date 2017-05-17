@@ -173,9 +173,9 @@ bool TwoThreeFourNode::b_IsLeaf()
 	return (childArray[0] == nullptr) ? true : false;
 }
 
-DataItem TwoThreeFourNode::GetItem(int index)
+DataItem* TwoThreeFourNode::GetItem(int index)
 {
-	return *dataItemArray[index];
+	return dataItemArray[index];
 }
 
 bool TwoThreeFourNode::b_IsFull()
@@ -189,7 +189,7 @@ bool TwoThreeFourNode::b_IsFull()
 
 Tree234::Tree234(void)
 {
-	root = new TwoThreeFourNode;
+	root = NULL;
 }
 
 Tree234::~Tree234(void)
@@ -225,41 +225,62 @@ int Tree234::Find(long key)
 
 void Tree234::Insert(long dataValue)
 {
-	TwoThreeFourNode* current = root;
-	DataItem* tempDataItemPtr = new DataItem;
-	tempDataItemPtr->data = dataValue;
-	// DataItem* tempDataItemPtr = &tempDataItem;
+	TwoThreeFourNode* current;
+	DataItem* newDataItem;
+	newDataItem = new DataItem;
+	newDataItem->data = dataValue;
 
+	// in case root is empty,
+	TwoThreeFourNode* newNode;
+	newNode = new TwoThreeFourNode;
 
-	while (true)
+	bool iterate = true;
+
+	if (IsEmpty())
 	{
-		// if node is full, split it
-		if (current->b_IsFull())
+		root = newNode;
+		root->InsertItem(newDataItem);
+	}
+	else
+	{
+		current = root;
+
+		while (iterate)
 		{
-			// split
-			Split(current);
-			// back up one level
-			current = current->GetParent();
-			// search
-			current = GetNextChild(current, dataValue);
-		}
-		// else if node is leaf, go insert
-		else if (current->b_IsLeaf())
-		{
-			break;
-		}
-		else
-		{
-			// else node is not full and not a leaf
-			// go to next level
-			current = GetNextChild(current, dataValue);
-		}
-	} // end while
-	
-	current->InsertItem(tempDataItemPtr);
-	
+			// if node is full, split it
+			if (current->b_IsFull())
+			{
+				// split
+				Split(current);
+				// back up one level
+				current = current->GetParent();
+				// search
+				current = GetNextChild(current, dataValue);
+				// NOTE: current gets nuked upon exiting this loop
+			}
+			// else if node is leaf, go insert
+			else if (current->b_IsLeaf())
+			{
+				iterate = false;
+				// break;
+			}
+			else
+			{
+				// else node is not full and not a leaf
+				// go to next level
+				current = GetNextChild(current, dataValue);
+			}
+		} // end while
+
+		current->InsertItem(newDataItem);
+	} // end else
 	// delete tempDataItemPtr;
 } // end Insert()
+
+bool Tree234::IsEmpty()
+{
+	return (root == NULL);
+} // end IsEmpty()
 
 void Tree234::Split(TwoThreeFourNode* inNode)
 {
@@ -280,13 +301,14 @@ void Tree234::Split(TwoThreeFourNode* inNode)
 	child3 = inNode->DisconnectChild(3);
 
 	// make new node
-	TwoThreeFourNode newRight;
-	TwoThreeFourNode* newRightPtr = &newRight;
+	//TwoThreeFourNode newRight;
+	TwoThreeFourNode* newRightPtr = new TwoThreeFourNode;
 
 	if (inNode == root)
 	{
 		// create new node and have root point to it
 		root = new TwoThreeFourNode;
+		// inNode->parent = root
 		parent = root;
 		root->ConnectChild(0, inNode);
 	}
@@ -294,11 +316,11 @@ void Tree234::Split(TwoThreeFourNode* inNode)
 	{
 		parent = inNode->GetParent();
 	}
-
+	// put itemB into parent of node being split
 	itemIndex = parent->InsertItem(itemB);
 	int numParentItems = parent->GetNumItems();
 
-	for (int i = numParentItems - 1; i > itemIndex; i++)
+	for (int i = numParentItems - 1; i > itemIndex; i--)
 	{
 		TwoThreeFourNode* temp = parent->DisconnectChild(i);
 		parent->ConnectChild(i + 1, temp);
@@ -308,9 +330,9 @@ void Tree234::Split(TwoThreeFourNode* inNode)
 	parent->ConnectChild(itemIndex + 1, newRightPtr);
 
 	// handle new right
-	newRight.InsertItem(itemC);
-	newRight.ConnectChild(0, child2);
-	newRight.ConnectChild(1, child3);
+	newRightPtr->InsertItem(itemC);
+	newRightPtr->ConnectChild(0, child2);
+	newRightPtr->ConnectChild(1, child3);
 } // end Split()
 
 
@@ -318,14 +340,18 @@ TwoThreeFourNode* Tree234::GetNextChild(TwoThreeFourNode* inNode, long inValue)
 {
 	// assumes node is not empty and not a leaf
 	int numItems = inNode->GetNumItems();
+	int j;
 
-	for (int j = 0; j < numItems; j++)
+	for (j = 0; j < numItems; j++)
 	{
-		if (inValue < inNode->GetItem(j).data)
+		if (inValue < inNode->GetItem(j)->data)
 		{
+			// less than so return left child
 			return inNode->GetChild(j);
 		}
-	}
+	} // end for
+	// greater so return right child
+	return inNode->GetChild(j);
 } // end GetNextChild()
 
 

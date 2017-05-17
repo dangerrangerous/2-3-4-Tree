@@ -46,7 +46,7 @@ public:
 	bool b_IsLeaf();
 	bool b_IsFull();
 
-	DataItem GetItem(int index);
+	DataItem* GetItem(int index);
 
 	
 private:
@@ -71,6 +71,7 @@ public:
 	void Insert(long dataValue);
 	void Split(TwoThreeFourNode* inNode);
 	TwoThreeFourNode* GetNextChild(TwoThreeFourNode* inNode, long inValue);
+	bool IsEmpty();
 private:
 	// double check that new is handled
 	// I don't really like the syntax for root

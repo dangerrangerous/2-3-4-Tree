@@ -33,7 +33,7 @@ public:
 	
 	void ConnectChild(int childNum, TwoThreeFourNode* child);
 	
-	TwoThreeFourNode DisconnectChild(int childNum);
+	TwoThreeFourNode* DisconnectChild(int childNum);
 	
 	TwoThreeFourNode* GetChild(int childNum);
 	TwoThreeFourNode* GetParent();

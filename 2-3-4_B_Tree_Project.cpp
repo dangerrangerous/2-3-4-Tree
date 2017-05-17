@@ -129,6 +129,7 @@ int main()
 	tree234.Insert(1);
 	tree234.Insert(2);
 	tree234.Insert(3);
+
 	tree234.Insert(4);
 	tree234.Insert(5);
 

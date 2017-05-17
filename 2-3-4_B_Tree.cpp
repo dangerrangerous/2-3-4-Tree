@@ -72,6 +72,9 @@ int TwoThreeFourNode::InsertItem(DataItem* inItem)
 	// all items have been shifted, insert inItem
 	dataItemArray[0] = inItem;
 
+	// delete the dataItem pointer
+	// delete inItem;
+
 	return 0;
 } // end InsertItem()
 
@@ -101,9 +104,9 @@ void TwoThreeFourNode::ConnectChild(int childNum, TwoThreeFourNode* child)
 // smelly syntax.
 // NOTE: This clears the child array of the node but the disconnected node still
 // contains a pointer to parent... which we may want to remove.
-TwoThreeFourNode TwoThreeFourNode::DisconnectChild(int childNum)
+TwoThreeFourNode* TwoThreeFourNode::DisconnectChild(int childNum)
 {
-	TwoThreeFourNode tempNode = *childArray[childNum];
+	TwoThreeFourNode* tempNode = childArray[childNum];
 	childArray[childNum] = nullptr;
 	
 	return tempNode;
@@ -223,9 +226,9 @@ int Tree234::Find(long key)
 void Tree234::Insert(long dataValue)
 {
 	TwoThreeFourNode* current = root;
-	DataItem tempDataItem; 
-	tempDataItem.data = dataValue;
-	DataItem* tempDataItemPtr = &tempDataItem;
+	DataItem* tempDataItemPtr = new DataItem;
+	tempDataItemPtr->data = dataValue;
+	// DataItem* tempDataItemPtr = &tempDataItem;
 
 
 	while (true)
@@ -251,9 +254,11 @@ void Tree234::Insert(long dataValue)
 			// go to next level
 			current = GetNextChild(current, dataValue);
 		}
-		
-		current->InsertItem(tempDataItemPtr);
-	}
+	} // end while
+	
+	current->InsertItem(tempDataItemPtr);
+	
+	// delete tempDataItemPtr;
 } // end Insert()
 
 void Tree234::Split(TwoThreeFourNode* inNode)
@@ -271,8 +276,8 @@ void Tree234::Split(TwoThreeFourNode* inNode)
 	itemC = inNode->RemoveItem();
 	itemB = inNode->RemoveItem();
 	// remove children
-	child2 = &inNode->DisconnectChild(2);
-	child3 = &inNode->DisconnectChild(3);
+	child2 = inNode->DisconnectChild(2);
+	child3 = inNode->DisconnectChild(3);
 
 	// make new node
 	TwoThreeFourNode newRight;
@@ -295,7 +300,7 @@ void Tree234::Split(TwoThreeFourNode* inNode)
 
 	for (int i = numParentItems - 1; i > itemIndex; i++)
 	{
-		TwoThreeFourNode* temp = &parent->DisconnectChild(i);
+		TwoThreeFourNode* temp = parent->DisconnectChild(i);
 		parent->ConnectChild(i + 1, temp);
 	}
 

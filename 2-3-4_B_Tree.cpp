@@ -87,7 +87,7 @@ DataItem* TwoThreeFourNode::RemoveItem()
 	numItems--;
 
 	return temp;
-}
+} // end RemoveItem()
 
 // Connect child node to this node
 void TwoThreeFourNode::ConnectChild(int childNum, TwoThreeFourNode* child)
@@ -101,16 +101,13 @@ void TwoThreeFourNode::ConnectChild(int childNum, TwoThreeFourNode* child)
 	}
 } // end ConnectChild()
 
-// smelly syntax.
-// NOTE: This clears the child array of the node but the disconnected node still
-// contains a pointer to parent... which we may want to remove.
 TwoThreeFourNode* TwoThreeFourNode::DisconnectChild(int childNum)
 {
 	TwoThreeFourNode* tempNode = childArray[childNum];
 	childArray[childNum] = nullptr;
 	
 	return tempNode;
-}
+} // end DisconnectChild()
 
 TwoThreeFourNode* TwoThreeFourNode::GetChild(int childNum)
 {
@@ -120,25 +117,21 @@ TwoThreeFourNode* TwoThreeFourNode::GetChild(int childNum)
 	}
 	else
 	{
-		cout << "child is null" << endl;
-		// return something
+		return nullptr;
 	}
-}
+} // end GetChild()
 
 TwoThreeFourNode* TwoThreeFourNode::GetParent()
 {
 	// parent isn't currently pointing to anything need to fix.
 	return parent;
-}
+} // end GetParent()
 
 
 int TwoThreeFourNode::GetNumItems()
 {
-	//  testing
-	cout << "GetNumItems() returned " << numItems << endl;
-
 	return numItems;
-}
+} // end GetNumItems()
 
 int TwoThreeFourNode::FindItem(long key)
 {
@@ -354,4 +347,30 @@ TwoThreeFourNode* Tree234::GetNextChild(TwoThreeFourNode* inNode, long inValue)
 	return inNode->GetChild(j);
 } // end GetNextChild()
 
+void Tree234::DisplayTree()
+{
+	RecursiveDisplayTree(root, 0, 0);
+}
 
+void Tree234::RecursiveDisplayTree(TwoThreeFourNode* inNode, int level, int childNumber)
+{
+	cout << "Level: " << level << " " << "Child: " << childNumber << " " << endl;
+	inNode->DisplayNode();
+	cout << endl;
+
+	// recursive call for each child of this node
+	int numItems = inNode->GetNumItems();
+	for (int i = 0; i < numItems + 1; i++)
+	{
+		TwoThreeFourNode* nextNode = inNode->GetChild(i);
+
+		if (nextNode != nullptr)
+		{
+			RecursiveDisplayTree(nextNode, level + 1, i);
+		}
+		else
+		{
+			return;
+		}
+	}
+} // end RecursiveDisplayTree()

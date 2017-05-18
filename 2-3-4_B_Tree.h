@@ -62,6 +62,8 @@ private:
 class Tree234
 {
 public:
+	// TODO: implement Delete(). Inorder, PreOrder, and
+	// PostOrder traversals recursively.
 	// Default constructor
 	Tree234(void);
 	// Default destructor
@@ -72,8 +74,12 @@ public:
 	void Split(TwoThreeFourNode* inNode);
 	TwoThreeFourNode* GetNextChild(TwoThreeFourNode* inNode, long inValue);
 	bool IsEmpty();
+	void DisplayTree();
+	void RecursiveDisplayTree(TwoThreeFourNode* inNode, int level, int childNumber);
+
+
+
 private:
-	// double check that new is handled
-	// I don't really like the syntax for root
+
 	TwoThreeFourNode* root;
 };

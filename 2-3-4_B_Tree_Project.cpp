@@ -132,6 +132,11 @@ int main()
 
 	tree234.Insert(4);
 	tree234.Insert(5);
+	tree234.Insert(7);
+	
+	tree234.Insert(6);
+
+	tree234.DisplayTree();
 
     return 0;
 }

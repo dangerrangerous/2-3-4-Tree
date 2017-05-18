@@ -374,3 +374,13 @@ void Tree234::RecursiveDisplayTree(TwoThreeFourNode* inNode, int level, int chil
 		}
 	}
 } // end RecursiveDisplayTree()
+
+void Tree234::DeleteItem(long key)
+{
+	Delete(root, key);
+} // end DeleteItem()
+
+void Tree234::Delete(TwoThreeFourNode* rootPointer, long key)
+{
+	// save for tomorrow
+}

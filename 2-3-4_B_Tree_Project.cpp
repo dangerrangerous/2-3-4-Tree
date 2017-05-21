@@ -47,6 +47,8 @@ int main()
 
 	tree234.DisplayTree();
 
+	tree234.DeleteItem(7);
+
     return 0;
 }
 

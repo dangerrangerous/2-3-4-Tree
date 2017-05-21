@@ -81,7 +81,7 @@ public:
 private:
 
 	void RecursiveDisplayTree(TwoThreeFourNode* inNode, int level, int childNumber);
-	void Delete(TwoThreeFourNode* rootPointer, long key);
+	DataItem* Delete(TwoThreeFourNode* rootPointer, long key);
 
 	TwoThreeFourNode* root;
 };

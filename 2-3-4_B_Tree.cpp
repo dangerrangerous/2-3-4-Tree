@@ -199,7 +199,7 @@ int Tree234::Find(long key)
 	while (true)
 	{
 		// if found
-		if (childNumber = current->FindItem(key) != -1)
+		if ((childNumber = current->FindItem(key)) != -1)
 		{
 			return childNumber;
 		}
@@ -380,7 +380,25 @@ void Tree234::DeleteItem(long key)
 	Delete(root, key);
 } // end DeleteItem()
 
-void Tree234::Delete(TwoThreeFourNode* rootPointer, long key)
+DataItem* Tree234::Delete(TwoThreeFourNode* rootPointer, long key)
 {
-	// save for tomorrow
+	TwoThreeFourNode* current = rootPointer;
+
+	// Handle 3 cases.
+
+	// Case 1: Item is in leaf and there are at least 2 keys in the node
+	// Find the node and index of the key
+
+	// NOTE: Find() is returning child 1 when it should be returning child 2
+	// GetNextChild() may be returning the wrong child...
+
+	// test 3, should return 1, but since 7 returns 1, perhaps 3 will return 2
+	Find(key);
+
+	// temp for test
+	return 0;
 }
+
+// Merge()
+
+// Rotate()

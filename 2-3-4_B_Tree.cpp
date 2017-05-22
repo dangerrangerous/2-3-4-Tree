@@ -563,5 +563,39 @@ void TwoThreeFourNode::BorrowFromPrevious(int index)
 
 void TwoThreeFourNode::BorrowFromNext(int index)
 {
+	TwoThreeFourNode* child = childArray[index];
+	TwoThreeFourNode* rightSibling = childArray[index + 1];
 
+	// dataItemArray[index] is inserted as the last key in dataItemArray[index]
+	child->dataItemArray[(child->numItems) + 1] = dataItemArray[index];
+
+	// rightSibling's first child is inserted as the last child into childArray[index]
+	if (!child->b_IsLeaf()) 
+	{
+		child->childArray[(child->numItems)+1] = rightSibling->childArray[0];
+	}
+
+	// the first key from sibling is inserted into dataItemArray[index]
+	dataItemArray[index] = rightSibling->dataItemArray[0];
+
+	// Move all keys in sibling one step behind
+	for (int i = 1; i < rightSibling->numItems; i++)
+	{
+		rightSibling->childArray[i - 1] = rightSibling->childArray[i];
+	}
+
+	// Move the child pointers one step behind
+	if (!rightSibling->b_IsLeaf())
+	{
+		for (int i = 1; i <= rightSibling->numItems; i++)
+		{
+			rightSibling->childArray[i - 1] = rightSibling->childArray[i];
+		}
+	}
+
+	// Increase and decrease key counts
+	child->numItems++;
+	rightSibling->numItems--;
+
+	return;
 }

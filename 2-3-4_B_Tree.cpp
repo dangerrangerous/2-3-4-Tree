@@ -152,6 +152,25 @@ int TwoThreeFourNode::FindItem(long key)
 	return -1;
 }
 
+// Returns index of item being searched for
+int TwoThreeFourNode::FindIndex(long key)
+{
+	for (int i = 0; i <= ORDER - 1; i++)
+	{
+		if (dataItemArray[i] == nullptr)
+		{
+			// if dataItemArray[0] is nullptr, we are at an empty leaf
+			break;
+		}
+		else if (dataItemArray[i]->data == key)
+		{
+			return i;
+		}
+	}
+
+	return -1;
+}
+
 void TwoThreeFourNode::DisplayNode()
 {
 	for (int i = 0; i < numItems; i++)
@@ -191,6 +210,8 @@ Tree234::~Tree234(void)
 	// DestroyTree();
 }
 
+// Returns the value if found, otherwise returns -1
+// Could cause problems if the key value actually is -1
 int Tree234::Find(long key)
 {
 	TwoThreeFourNode* current = root;
@@ -380,25 +401,167 @@ void Tree234::DeleteItem(long key)
 	Delete(root, key);
 } // end DeleteItem()
 
+/*
 DataItem* Tree234::Delete(TwoThreeFourNode* rootPointer, long key)
 {
 	TwoThreeFourNode* current = rootPointer;
 
+	bool keyIsInTree;
 	// Handle 3 cases.
 
 	// Case 1: Item is in leaf and there are at least 2 keys in the node
 	// Find the node and index of the key
 
-	// NOTE: Find() is returning child 1 when it should be returning child 2
-	// GetNextChild() may be returning the wrong child...
+	// check that key is in the tree
+	if (Find(key) != -1)
+	{
+		keyIsInTree = true;
+	}
+	else
+	{
+		keyIsInTree = false;
+	}
 
-	// test 3, should return 1, but since 7 returns 1, perhaps 3 will return 2
-	Find(key);
+	int index = current->FindIndex(key);
 
+	// Key is in this node
+	if (index < 3 && current->dataItemArray[index]->data == key)
+	{
+
+	}
 	// temp for test
 	return 0;
 }
+*/
 
+void TwoThreeFourNode::Remove(long key)
+{
+	int index = FindIndex(key);
+
+	// Key is in this node
+	if (index < ORDER - 1 && dataItemArray[index]->data == key)
+	{
+		if (b_IsLeaf)
+		{
+			RemoveFromLeaf(index);
+		}
+		else
+		{
+			RemoveFromNonLeaf(index);
+		}
+	}
+	// Key is not in this node
+	else
+	{
+		if (b_IsLeaf)
+		{
+			cout << "The Key " << key << " is not in the tree" << endl;
+			return;
+		}
+
+		// stuff goes here
+
+	}
+}
+
+// -
+void TwoThreeFourNode::RemoveFromLeaf(int index)
+{
+	// shift items after index backwards one to remove the item
+	for (int i = index + 1; i < ORDER - 1; i++)
+	{
+		dataItemArray[i - 1] = dataItemArray[i];
+	}
+
+	numItems--;
+
+	return;
+}
+
+void TwoThreeFourNode::RemoveFromNonLeaf(int index)
+{
+
+	// cases:
+	// 2a if elements left child has at least two keys, replace the element with
+	// its predecessor.
+	// 2b if both children only have 1 key, merge the right into the left and
+	// delete key from the left.
+
+	// 3 If key is not in internal node, find the key. To ensure all of the nodes
+	// descended through have at least two keys, do one of the following before
+	// descending into a node. Eventually case 1 or 2 will be arrived at
+	// a) if the child node has only 1 key and has a sibling with at least 2 keys,
+	// move a key from the sibling into the parent.
+	/*
+		b) if both the child node and its immediate sibling have only 1 key each,
+		merge the child node with one of the siblings and move an element down 
+		from the parent into the merged node. This key must be the middle key
+		in the node. Free the node whose keys were merged into another node
+	*/
+
+
+
+}
 // Merge()
 
-// Rotate()
+int TwoThreeFourNode::GetPredecessor(int index)
+{
+	TwoThreeFourNode* current = childArray[index];
+
+	while (!current->b_IsLeaf())
+	{
+		current = current->childArray[current->numItems];
+
+		// return the last key of the leaf
+		return current->dataItemArray[numItems- 1]->data;
+	}
+}
+
+int TwoThreeFourNode::GetSuccessor(int index)
+{
+	TwoThreeFourNode* current = childArray[index + 1];
+	while (!current->b_IsLeaf())
+	{
+		current = current->childArray[0];
+	}
+
+	// return first key of the leaf
+	return current->dataItemArray[0]->data;
+}
+
+// Borrows a key from left sibling and inserts it into childArray[index]
+void TwoThreeFourNode::BorrowFromPrevious(int index)
+{
+	TwoThreeFourNode* child = childArray[index];
+	TwoThreeFourNode* leftSibling = childArray[index - 1];
+
+	// Last key from leftSibling goes up to parent and key[index-1] from parent
+	// is inserted as the first key in child[index]. Sibling loses one key and
+	// child gains one key.
+
+	// Move all keys in childArray[index] one step ahead
+	for (int i = child->numItems- 1; i >= 0; i--)
+	{
+		child->dataItemArray[i + 1] = dataItemArray[i];
+	}
+
+	// Setting child's first key equal to dataItemArray[index-1] from the current node
+	child->dataItemArray[0] = dataItemArray[index - 1];
+
+	// Moving sibling's last child as childArray[index]'s first child
+	if (!b_IsLeaf())
+	{
+		child->childArray[0] = leftSibling->childArray[numItems];
+	}
+
+	// Move key from sibling to the parent
+	dataItemArray[index - 1] = leftSibling->dataItemArray[leftSibling->numItems- 1];
+
+	child->numItems += 1;
+	leftSibling->numItems -= 1;
+}
+
+void TwoThreeFourNode::BorrowFromNext(int index)
+{
+
+}

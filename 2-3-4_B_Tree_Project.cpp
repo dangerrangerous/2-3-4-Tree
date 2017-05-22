@@ -41,13 +41,13 @@ int main()
 
 	tree234.Insert(4);
 	tree234.Insert(5);
-	tree234.Insert(7);
+	tree234.Insert(42);
 	
 	tree234.Insert(6);
 
 	tree234.DisplayTree();
 
-	tree234.DeleteItem(7);
+	tree234.DeleteItem(42);
 
     return 0;
 }

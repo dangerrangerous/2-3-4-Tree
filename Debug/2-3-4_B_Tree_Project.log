@@ -1,3 +1,4 @@
-﻿  2-3-4_B_Tree_Project.cpp
-  2-3-4_B_Tree_Project.vcxproj -> C:\Users\Brian\onedrive\documents\visual studio 2015\Projects\2-3-4_B_Tree_Project\Debug\2-3-4_B_Tree_Project.exe
-  2-3-4_B_Tree_Project.vcxproj -> C:\Users\Brian\onedrive\documents\visual studio 2015\Projects\2-3-4_B_Tree_Project\Debug\2-3-4_B_Tree_Project.pdb (Full PDB)
+﻿  2-3-4_B_Tree.cpp
+c:\users\brian\onedrive\documents\visual studio 2015\projects\2-3-4_b_tree_project\2-3-4_b_tree_project\2-3-4_b_tree.cpp(567): warning C4715: 'TwoThreeFourNode::GetPredecessor': not all control paths return a value
+2-3-4_B_Tree.obj : error LNK2019: unresolved external symbol "private: class DataItem * __thiscall Tree234::Delete(class TwoThreeFourNode *,long)" (?Delete@Tree234@@AAEPAVDataItem@@PAVTwoThreeFourNode@@J@Z) referenced in function "public: void __thiscall Tree234::DeleteItem(long)" (?DeleteItem@Tree234@@QAEXJ@Z)
+C:\Users\Brian\onedrive\documents\visual studio 2015\Projects\2-3-4_B_Tree_Project\Debug\2-3-4_B_Tree_Project.exe : fatal error LNK1120: 1 unresolved externals

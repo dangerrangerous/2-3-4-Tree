@@ -50,6 +50,12 @@ public:
 	void Remove(long key);
 	void RemoveFromLeaf(int index);
 	void RemoveFromNonLeaf(int index);
+	void BorrowFromPrevious(int index);
+	void BorrowFromNext(int index);
+	void Merge(int index);
+	void Fill(int index);
+	int GetPredecessor(int index);
+	int GetSuccessor(int index);
 
 	DataItem* GetItem(int index);
 
@@ -80,6 +86,8 @@ public:
 	bool IsEmpty();
 	void DisplayTree();
 	void DeleteItem(long key);
+
+	void RemoveFromTree(long key);
 
 private:
 

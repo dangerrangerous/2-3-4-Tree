@@ -441,7 +441,7 @@ void TwoThreeFourNode::Remove(long key)
 	// Key is in this node
 	if (index < ORDER - 1 && dataItemArray[index]->data == key)
 	{
-		if (b_IsLeaf)
+		if (b_IsLeaf())
 		{
 			RemoveFromLeaf(index);
 		}
@@ -453,14 +453,35 @@ void TwoThreeFourNode::Remove(long key)
 	// Key is not in this node
 	else
 	{
-		if (b_IsLeaf)
+		if (b_IsLeaf())
 		{
 			cout << "The Key " << key << " is not in the tree" << endl;
 			return;
 		}
 
-		// stuff goes here
+		// Is the key present in the sub tree rooted with the last child of this node
+		bool flag = ((index == numItems) ? true : false);
 
+		// If the child where the key is supposed to exist has less than - keys
+		// call fill.
+		if (childArray[index]->numItems < ORDER - 2)
+		{
+			Fill(index);
+		}
+		
+		// If the last child has been merged, it must have merged with the prev
+		// child, so recursively remove previous child. Otherwise recursively
+		// remove index'th child which now has at least 2 keys
+		if (flag && index > numItems)
+		{
+			childArray[index - 1]->Remove(key);
+		}
+		else
+		{
+			childArray[index]->Remove(key);
+		}
+
+		return;
 	}
 }
 
@@ -499,10 +520,38 @@ void TwoThreeFourNode::RemoveFromNonLeaf(int index)
 		in the node. Free the node whose keys were merged into another node
 	*/
 
+	int key = dataItemArray[index]->data;
 
+	// If the child that precedes key (childArray[index]) has at least 2 keys
+	// find the predecessor of key in the subtree rooted at childArray[index]
+	// Replace key by predecessor, recursively delete predecessor in childArray[index]
+	if (childArray[index]->numItems >= ORDER - 2)
+	{
+		long predecessor = GetPredecessor(index);
+		dataItemArray[index]->data = predecessor;
+		childArray[index]->Remove(predecessor);
+	}
 
+	// If the leftChild has less than 2 keys, examine the rightChild.
+	// If rightChild has at least 2 keys, find the successor and replace
+	// k, recursively delete successor.
+	else if(childArray[index+1]->numItems >= ORDER - 2)
+	{
+		long successor = GetSuccessor(index);
+		dataItemArray[index]->data = successor;
+		childArray[index + 1]->Remove(successor);
+	}
+
+	// If both child and right child only have 1 key, merge key and 
+	// right child into child. Remove key from child after merge.
+	else
+	{
+		Merge(index);
+		childArray[index]->Remove(key);
+	}
+
+	return;
 }
-// Merge()
 
 int TwoThreeFourNode::GetPredecessor(int index)
 {
@@ -596,6 +645,92 @@ void TwoThreeFourNode::BorrowFromNext(int index)
 	// Increase and decrease key counts
 	child->numItems++;
 	rightSibling->numItems--;
+
+	return;
+}
+
+// Merge childArray[index] with childArray[index+1], then free 
+// childArray[index+1] after merging
+void TwoThreeFourNode::Merge(int index)
+{
+	TwoThreeFourNode* child = childArray[index];
+	TwoThreeFourNode* rightSibling = childArray[index + 1];
+
+	// Pull key from current node and insert it into the ORDER-1th position
+	child->dataItemArray[ORDER - 1] = dataItemArray[index];
+
+	// Copy the keys from sibling to child
+	for (int i = 0; i < rightSibling->numItems; i++)
+	{
+		child->dataItemArray[i + numItems] = rightSibling->dataItemArray[i];
+	}
+
+	// NOTE: this seems unnecssary. Copy child pointers from rightSibling to child
+
+	child->numItems += rightSibling->numItems+1;
+	numItems--;
+
+	delete(rightSibling);
+
+	return;
+}
+
+// Fills child with keys by borrowing from previous or next
+void TwoThreeFourNode::Fill(int index)
+{
+	// If previous child has more than 2 keys, borrow a key
+	if (index != 0 && childArray[index - 1]->numItems >= ORDER - 2)
+	{
+		BorrowFromPrevious(index);
+	}
+
+	// If the next child has more than 2 keys borrow a key
+	else if (index != numItems && childArray[index + 1]->numItems >= ORDER - 2)
+	{
+		BorrowFromNext(index);
+	}
+
+	// Merge child with its sibling, if last child merge with previous or next
+	// sibling
+	else
+	{
+		if (index != numItems)
+			Merge(index);
+		else
+			Merge(index - 1);
+	}
+
+	return;
+}
+
+void Tree234::RemoveFromTree(long key)
+{
+	if (!root)
+	{
+		cout << "tree is empty." << endl;
+		return;
+	}
+
+	// Call remove function for root
+	root->Remove(key);
+
+	// If root node has 0 keys, make its first child as new root, otherwise set root 
+	// as NULL
+	if (root->GetNumItems() == 0)
+	{
+		TwoThreeFourNode* temp = root;
+		if (root->b_IsLeaf())
+		{
+			root = NULL;
+		}
+		else
+		{
+			root = root->GetChild(0);
+		}
+
+		// Free the old root
+		delete temp;
+	}
 
 	return;
 }

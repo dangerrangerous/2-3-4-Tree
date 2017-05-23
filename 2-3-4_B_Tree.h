@@ -85,14 +85,14 @@ public:
 	TwoThreeFourNode* GetNextChild(TwoThreeFourNode* inNode, long inValue);
 	bool IsEmpty();
 	void DisplayTree();
-	void DeleteItem(long key);
+	// void DeleteItem(long key);
 
 	void RemoveFromTree(long key);
 
 private:
 
 	void RecursiveDisplayTree(TwoThreeFourNode* inNode, int level, int childNumber);
-	DataItem* Delete(TwoThreeFourNode* rootPointer, long key);
+	// DataItem* Delete(TwoThreeFourNode* rootPointer, long key);
 
 
 	TwoThreeFourNode* root;

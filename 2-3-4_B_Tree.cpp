@@ -396,42 +396,11 @@ void Tree234::RecursiveDisplayTree(TwoThreeFourNode* inNode, int level, int chil
 	}
 } // end RecursiveDisplayTree()
 
+/*
 void Tree234::DeleteItem(long key)
 {
 	Delete(root, key);
 } // end DeleteItem()
-
-/*
-DataItem* Tree234::Delete(TwoThreeFourNode* rootPointer, long key)
-{
-	TwoThreeFourNode* current = rootPointer;
-
-	bool keyIsInTree;
-	// Handle 3 cases.
-
-	// Case 1: Item is in leaf and there are at least 2 keys in the node
-	// Find the node and index of the key
-
-	// check that key is in the tree
-	if (Find(key) != -1)
-	{
-		keyIsInTree = true;
-	}
-	else
-	{
-		keyIsInTree = false;
-	}
-
-	int index = current->FindIndex(key);
-
-	// Key is in this node
-	if (index < 3 && current->dataItemArray[index]->data == key)
-	{
-
-	}
-	// temp for test
-	return 0;
-}
 */
 
 void TwoThreeFourNode::Remove(long key)
@@ -560,10 +529,10 @@ int TwoThreeFourNode::GetPredecessor(int index)
 	while (!current->b_IsLeaf())
 	{
 		current = current->childArray[current->numItems];
-
-		// return the last key of the leaf
-		return current->dataItemArray[numItems- 1]->data;
 	}
+
+	// return the last key of the leaf
+	return current->dataItemArray[numItems - 1]->data;
 }
 
 int TwoThreeFourNode::GetSuccessor(int index)

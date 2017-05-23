@@ -47,8 +47,17 @@ int main()
 
 	tree234.DisplayTree();
 
+	tree234.RemoveFromTree(3);
 
+	tree234.DisplayTree();
 
+	tree234.RemoveFromTree(2);
+
+	tree234.DisplayTree();
+
+	tree234.RemoveFromTree(1);
+
+	tree234.DisplayTree();
 
     return 0;
 }

@@ -17,12 +17,28 @@ DataItem::DataItem(void)
 DataItem::~DataItem(void)
 {
 	cout << "Destroying Data Item" << endl;
-	// DestroyDataItem();
 }
 
+/*
+void DataItem::DestroyDataItem(DataItem* &dataItemPointer)
+{
+	if (dataItemPointer != nullptr)
+	{
+		delete dataItemPointer;
+		dataItemPointer = nullptr;
+	}
+}
+*/
 void DataItem::DisplayItem()
 {
-	cout << data << " ";
+	if (data != NULL)
+	{
+		cout << data << " ";
+	}
+	else
+	{
+		return;
+	}
 }
 // end DataItem -------------------/
 
@@ -173,9 +189,12 @@ int TwoThreeFourNode::FindIndex(long key)
 
 void TwoThreeFourNode::DisplayNode()
 {
-	for (int i = 0; i < numItems; i++)
+	for (int i = 0; i < ORDER - 1; i++)
 	{
-		dataItemArray[i]->DisplayItem();
+		if (dataItemArray[i] != nullptr)
+		{
+			dataItemArray[i]->DisplayItem();
+		}
 	}
 }
 
@@ -402,13 +421,22 @@ void Tree234::DeleteItem(long key)
 	Delete(root, key);
 } // end DeleteItem()
 */
+int TwoThreeFourNode::FindKey(int key)
+{
+	int index = 0;
+	while (index < numItems && dataItemArray[index]->data < key)
+	{
+		index++;
+	}
+	return index;
+}
 
 void TwoThreeFourNode::Remove(long key)
 {
-	int index = FindIndex(key);
+	int index = FindKey(key);
 
 	// Key is in this node
-	if (index < ORDER - 1 && dataItemArray[index]->data == key)
+	if (index < numItems && dataItemArray[index]->data == key)
 	{
 		if (b_IsLeaf())
 		{
@@ -457,8 +485,10 @@ void TwoThreeFourNode::Remove(long key)
 // -
 void TwoThreeFourNode::RemoveFromLeaf(int index)
 {
+	delete(dataItemArray[index]);
+	dataItemArray[index] = nullptr;
 	// shift items after index backwards one to remove the item
-	for (int i = index + 1; i < ORDER - 1; i++)
+	for (int i = index + 1; i < numItems - 1; i++)
 	{
 		dataItemArray[i - 1] = dataItemArray[i];
 	}

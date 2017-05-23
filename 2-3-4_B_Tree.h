@@ -19,6 +19,10 @@ public:
 	~DataItem(void);
 
 	void DisplayItem();
+	// void DestroyDI();
+
+private:
+	// void DestroyDataItem(DataItem* &dataItemPointer);
 };
 
 class TwoThreeFourNode
@@ -56,6 +60,7 @@ public:
 	void Fill(int index);
 	int GetPredecessor(int index);
 	int GetSuccessor(int index);
+	int FindKey(int key);
 
 	DataItem* GetItem(int index);
 

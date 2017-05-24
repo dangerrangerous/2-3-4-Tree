@@ -47,8 +47,12 @@ int main()
 
 	tree234.DisplayTree();
 
+	// Case 3 (a)
+	// NOTE: this needs to remove 5 from the child node since it moves 5 into the parent
 	tree234.RemoveFromTree(3);
-
+	// should display
+	//     2 5
+	// 1 | 4 | 6 42
 	tree234.DisplayTree();
 
 	tree234.RemoveFromTree(2);

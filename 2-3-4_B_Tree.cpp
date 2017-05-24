@@ -3,6 +3,7 @@
 #include "stdafx.h"
 #include "2-3-4_B_Tree.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -629,8 +630,12 @@ void TwoThreeFourNode::BorrowFromNext(int index)
 	// Move all keys in sibling one step behind
 	for (int i = 1; i < rightSibling->numItems; i++)
 	{
-		rightSibling->childArray[i - 1] = rightSibling->childArray[i];
+		rightSibling->dataItemArray[i - 1] = rightSibling->dataItemArray[i];
 	}
+
+	// remove the last key in the array so there are no duplicates
+	rightSibling->RemoveItem();
+
 
 	// Move the child pointers one step behind
 	if (!rightSibling->b_IsLeaf())
@@ -641,9 +646,8 @@ void TwoThreeFourNode::BorrowFromNext(int index)
 		}
 	}
 
-	// Increase and decrease key counts
+	// Increase key counts
 	child->numItems++;
-	rightSibling->numItems--;
 
 	return;
 }
@@ -655,20 +659,55 @@ void TwoThreeFourNode::Merge(int index)
 	TwoThreeFourNode* child = childArray[index];
 	TwoThreeFourNode* rightSibling = childArray[index + 1];
 
-	// Pull key from current node and insert it into the ORDER-1th position
-	child->dataItemArray[ORDER - 1] = dataItemArray[index];
+	// Pull key from current node and insert it into the numItems-th position
+	child->dataItemArray[child->numItems] = dataItemArray[index];
 
 	// Copy the keys from sibling to child
-	for (int i = 0; i < rightSibling->numItems; i++)
+	// NOTE: this is kind of a dirty hack since keys aren't being moved towards array 
+	// position 0. Could be unnecessary but it's safer, still need to test more cases.
+	for (int i = 0; i < ORDER - 1; i++)
 	{
-		child->dataItemArray[i + numItems] = rightSibling->dataItemArray[i];
+		if (rightSibling->dataItemArray[i] != nullptr)
+		{
+			for (int j = 0; j < ORDER - 1; j++)
+			{
+				if (child->dataItemArray[j] == nullptr)
+				{
+					child->dataItemArray[j] = rightSibling->dataItemArray[i];
+				}
+			} // end inner for
+		} // end if
+	} // end outter for
+	
+	// Copy the child pointers
+	if (!child->b_IsLeaf())
+	{
+		for (int i = 0; i <= rightSibling->numItems; i++)
+		{
+			child->childArray[i + numItems] = rightSibling->childArray[i];
+		}
 	}
 
-	// NOTE: this seems unnecssary. Copy child pointers from rightSibling to child
+	// Move all keys after index in the current node one step before to fill gap
+	for (int i = index + 1; i < numItems; i++)
+	{
+		dataItemArray[i - 1] = dataItemArray[i];
+		dataItemArray[i] = nullptr;
+	}
+
+	// Move child pointers after index+1 in current node one step before
+	for (int i = index + 2; i <= numItems; i++)
+	{
+		childArray[i - 1] = childArray[i];
+		childArray[i] = nullptr;
+	}
+
+
 
 	child->numItems += rightSibling->numItems+1;
 	numItems--;
 
+	rightSibling = nullptr;
 	delete(rightSibling);
 
 	return;

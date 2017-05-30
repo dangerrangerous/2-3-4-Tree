@@ -535,7 +535,7 @@ void TwoThreeFourNode::RemoveFromNonLeaf(int index)
 	// If the leftChild has less than 2 keys, examine the rightChild.
 	// If rightChild has at least 2 keys, find the successor and replace
 	// k, recursively delete successor.
-	else if(childArray[index+1]->numItems >= ORDER - 2)
+	else if(childArray[index + 1]->numItems >= ORDER - 2)
 	{
 		long successor = GetSuccessor(index);
 		dataItemArray[index]->data = successor;
@@ -665,6 +665,8 @@ void TwoThreeFourNode::Merge(int index)
 	// Copy the keys from sibling to child
 	// NOTE: this is kind of a dirty hack since keys aren't being moved towards array 
 	// position 0. Could be unnecessary but it's safer, still need to test more cases.
+	// Since n will not be larger than 3 this nested for loop is acceptable. However, if 
+	// this were a B tree like the one CouchDB uses, n could upwards of 1 Million.
 	for (int i = 0; i < ORDER - 1; i++)
 	{
 		if (rightSibling->dataItemArray[i] != nullptr)

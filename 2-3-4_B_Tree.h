@@ -89,15 +89,18 @@ public:
 	void Split(TwoThreeFourNode* inNode);
 	TwoThreeFourNode* GetNextChild(TwoThreeFourNode* inNode, long inValue);
 	bool IsEmpty();
-	void DisplayTree();
-	// void DeleteItem(long key);
+	void DisplayPreOrder();
+	void DisplayInOrder();
+	void DisplayPostOrder();
 
 	void RemoveFromTree(long key);
 
 private:
 
-	void RecursiveDisplayTree(TwoThreeFourNode* inNode, int level, int childNumber);
-	// DataItem* Delete(TwoThreeFourNode* rootPointer, long key);
+	// Recursive PreOrder Traversal
+	void RecursivePreOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber);
+	void RecursiveInOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber);
+	void RecursivePostOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber);
 
 
 	TwoThreeFourNode* root;

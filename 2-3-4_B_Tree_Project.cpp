@@ -35,33 +35,23 @@ int main()
 {
 	Tree234 tree234;
 
-	tree234.Insert(1);
-	tree234.Insert(2);
+	tree234.Insert(16);
 	tree234.Insert(3);
-
-	tree234.Insert(4);
+	tree234.Insert(8);
+	tree234.Insert(1);
+	tree234.Insert(22);
+	tree234.Insert(18);
+	tree234.Insert(19);
+	tree234.Insert(24);
+	tree234.Insert(25);
+	tree234.Insert(26);
+	tree234.Insert(2);
 	tree234.Insert(5);
-	tree234.Insert(42);
-	
 	tree234.Insert(6);
 
-	tree234.DisplayTree();
-
-	// Case 3 (a)
-	// NOTE: this needs to remove 5 from the child node since it moves 5 into the parent
-	tree234.RemoveFromTree(3);
-	// should display
-	//     2 5
-	// 1 | 4 | 6 42
-	tree234.DisplayTree();
-
-	tree234.RemoveFromTree(2);
-
-	tree234.DisplayTree();
-
-	tree234.RemoveFromTree(1);
-
-	tree234.DisplayTree();
+	// DisplayTree() is a PreOrder traversal
+	tree234.DisplayPreOrder();
+	tree234.DisplayInOrder();
 
     return 0;
 }

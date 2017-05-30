@@ -388,12 +388,32 @@ TwoThreeFourNode* Tree234::GetNextChild(TwoThreeFourNode* inNode, long inValue)
 	return inNode->GetChild(j);
 } // end GetNextChild()
 
-void Tree234::DisplayTree()
+void Tree234::DisplayPreOrder()
 {
-	RecursiveDisplayTree(root, 0, 0);
+	if (root == nullptr)
+		return;
+
+	RecursivePreOrderTraversal(root, 0, 0);
 }
 
-void Tree234::RecursiveDisplayTree(TwoThreeFourNode* inNode, int level, int childNumber)
+void Tree234::DisplayInOrder()
+{
+	if (root == nullptr)
+		return; 
+
+	RecursiveInOrderTraversal(root, 0, 0);
+}
+
+void Tree234::DisplayPostOrder()
+{
+	if (root == nullptr)
+		return;
+
+	RecursivePostOrderTraversal(root, 0, 0);
+}
+
+// Recursive PreOrder Traversal
+void Tree234::RecursivePreOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber)
 {
 	cout << "Level: " << level << " " << "Child: " << childNumber << " " << endl;
 	inNode->DisplayNode();
@@ -403,25 +423,47 @@ void Tree234::RecursiveDisplayTree(TwoThreeFourNode* inNode, int level, int chil
 	int numItems = inNode->GetNumItems();
 	for (int i = 0; i < numItems + 1; i++)
 	{
+		// if these pointers need to be deleted just let me know.
 		TwoThreeFourNode* nextNode = inNode->GetChild(i);
 
 		if (nextNode != nullptr)
 		{
-			RecursiveDisplayTree(nextNode, level + 1, i);
+			RecursivePreOrderTraversal(nextNode, level + 1, i);
 		}
 		else
 		{
 			return;
 		}
 	}
-} // end RecursiveDisplayTree()
+} // end RecursivePreOrderTraversal()
 
-/*
-void Tree234::DeleteItem(long key)
+void Tree234::RecursiveInOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber)
 {
-	Delete(root, key);
-} // end DeleteItem()
-*/
+
+ 
+	int numItems = inNode->GetNumItems();
+	for (int i = 0; i < numItems; i++)
+	{
+		TwoThreeFourNode* childNode = inNode->GetChild(i);
+
+		if (childNode->b_IsLeaf())
+		{
+			// go left
+			RecursiveInOrderTraversal(childNode, level, i);
+			inNode->DisplayNode();
+		}
+		else
+		{
+			return;
+		}
+	}
+} // end RecursiveInOrderTraversal()
+
+void Tree234::RecursivePostOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber)
+{
+
+} // end RecursiveInOrderTraversal()
+
 int TwoThreeFourNode::FindKey(int key)
 {
 	int index = 0;

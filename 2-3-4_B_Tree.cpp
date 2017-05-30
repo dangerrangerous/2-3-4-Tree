@@ -439,24 +439,37 @@ void Tree234::RecursivePreOrderTraversal(TwoThreeFourNode* inNode, int level, in
 
 void Tree234::RecursiveInOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber)
 {
+	
+	if (inNode == nullptr)
+		return;
+
+	int numItems = inNode->GetNumItems();
+	RecursiveInOrderTraversal(inNode->GetChild(0), level, childNumber);
+	inNode->DisplayNode();
+	for (int i = 1; i <= numItems; i++)
+	{
+		RecursiveInOrderTraversal(inNode->GetChild(i), level, childNumber);
+	}
 
  
+	/*
 	int numItems = inNode->GetNumItems();
 	for (int i = 0; i < numItems; i++)
 	{
 		TwoThreeFourNode* childNode = inNode->GetChild(i);
 
-		if (childNode->b_IsLeaf())
+		if (childNode != nullptr)
 		{
 			// go left
 			RecursiveInOrderTraversal(childNode, level, i);
-			inNode->DisplayNode();
+			
 		}
 		else
 		{
 			return;
 		}
 	}
+	*/
 } // end RecursiveInOrderTraversal()
 
 void Tree234::RecursivePostOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber)

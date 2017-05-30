@@ -451,31 +451,21 @@ void Tree234::RecursiveInOrderTraversal(TwoThreeFourNode* inNode, int level, int
 		RecursiveInOrderTraversal(inNode->GetChild(i), level, childNumber);
 	}
 
- 
-	/*
-	int numItems = inNode->GetNumItems();
-	for (int i = 0; i < numItems; i++)
-	{
-		TwoThreeFourNode* childNode = inNode->GetChild(i);
-
-		if (childNode != nullptr)
-		{
-			// go left
-			RecursiveInOrderTraversal(childNode, level, i);
-			
-		}
-		else
-		{
-			return;
-		}
-	}
-	*/
 } // end RecursiveInOrderTraversal()
 
 void Tree234::RecursivePostOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber)
 {
+	if (inNode == nullptr)
+		return;
 
-} // end RecursiveInOrderTraversal()
+	int numItems = inNode->GetNumItems();
+	for (int i = 0; i <= numItems; i++)
+	{
+		RecursivePostOrderTraversal(inNode->GetChild(i), level, childNumber);
+	}
+
+	inNode->DisplayNode();
+} // end RecursivePostOrderTraversal()
 
 int TwoThreeFourNode::FindKey(int key)
 {

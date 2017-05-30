@@ -52,6 +52,7 @@ int main()
 	// DisplayTree() is a PreOrder traversal
 	tree234.DisplayPreOrder();
 	tree234.DisplayInOrder();
+	tree234.DisplayPostOrder();
 
     return 0;
 }

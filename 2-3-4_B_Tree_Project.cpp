@@ -35,14 +35,6 @@ int main()
 		menu.ProcessCommand(tree234);
 	} while (menu.Continue());
 
- // DisplayTree() is a PreOrder traversal
-	/*
-	tree234.DisplayPreOrder();
-	tree234.DisplayInOrder();
-	tree234.DisplayPostOrder();
-	*/
-
-
     return 0;
 }
 

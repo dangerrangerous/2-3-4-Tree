@@ -1,3 +1,6 @@
+// Menu.cpp
+// Brian Keppinger
+
 #include "stdafx.h"
 #include "Menu.h"
 #include "2-3-4_B_Tree.h"
@@ -70,11 +73,13 @@ void Menu::QueryUser()
 		break;
 	case 7: userMenuSelection = Postorder;
 		break;
+		/*
+		TODO:
 	case 8: userMenuSelection = Height;
 		break;
 	case 9: userMenuSelection = NodeCount;
 		break;
-
+		*/
 	default: userMenuSelection = Quit;
 	}
 	cout << endl;
@@ -131,12 +136,12 @@ void Menu::ProcessCommand(Tree234& twoThreeFourTree)
 			break;
 			/*
 			TODO:
-					case Height:
-						cout << "Assessing the height of the tree:" << endl;
-						cout << "The tree is " << binaryTree.TreeHeight() << " levels tall." << endl;
-						cout << endl;
-						break;
-			
+		case Height:
+			cout << "Assessing the height of the tree:" << endl;
+			cout << "The tree is " << binaryTree.TreeHeight() << " levels tall." << endl;
+			cout << endl;
+			break;
+
 		case Nodecount:
 			cout << "There are " << twoThreeFourTree.NodeCount() << " nodes in the tree." << endl;
 			break;

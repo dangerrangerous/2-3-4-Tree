@@ -22,10 +22,6 @@
 // Data item A remains where it is.
 // The two rightmost children of the node being split are disconnected from it and connected to the new right-hand node.
 
-//  Implement a 2-3-4 B Tree class.  Implement an Insert and Delete operators, as well as any others that are necessary.  
-// See the LaFore text. Also implement Inorder, Preorder, and Postorder tree traversal  operators recursively.  
-// When the traversal operator visits a node, it should output all node key values.
-
 #include "stdafx.h"
 #include "2-3-4_B_Tree.h"
 #include <iostream>
@@ -68,9 +64,9 @@ void DataItem::DisplayItem()
 		return;
 	}
 }
-// end DataItem -------------------/
+// end DataItem =========================
 
-// TwoThreeFourNode -------/
+// TwoThreeFourNode =====================
 TwoThreeFourNode::TwoThreeFourNode(void)
 {
 	dataItemArray[ORDER - 1] = nullptr;
@@ -116,9 +112,6 @@ int TwoThreeFourNode::InsertItem(DataItem* inItem)
 	// all items have been shifted, insert inItem
 	dataItemArray[0] = inItem;
 
-	// delete the dataItem pointer
-	// delete inItem;
-
 	return 0;
 } // end InsertItem()
 
@@ -136,7 +129,6 @@ DataItem* TwoThreeFourNode::RemoveItem()
 // Connect child node to this node
 void TwoThreeFourNode::ConnectChild(int childNum, TwoThreeFourNode* child)
 {
-	// test this
 	childArray[childNum] = child;
 
 	if (child != nullptr)
@@ -167,7 +159,6 @@ TwoThreeFourNode* TwoThreeFourNode::GetChild(int childNum)
 
 TwoThreeFourNode* TwoThreeFourNode::GetParent()
 {
-	// parent isn't currently pointing to anything need to fix.
 	return parent;
 } // end GetParent()
 
@@ -177,6 +168,7 @@ int TwoThreeFourNode::GetNumItems()
 	return numItems;
 } // end GetNumItems()
 
+// Utility function to be used by other functions.
 int TwoThreeFourNode::FindItem(long key)
 {
 	for (int i = 0; i <= ORDER - 1; i++)
@@ -194,7 +186,7 @@ int TwoThreeFourNode::FindItem(long key)
 	}
 
 	return -1;
-}
+} // end FindItem()
 
 // Returns index of item being searched for
 int TwoThreeFourNode::FindIndex(long key)
@@ -213,7 +205,7 @@ int TwoThreeFourNode::FindIndex(long key)
 	}
 
 	return -1;
-}
+} // end FindIndex()
 
 void TwoThreeFourNode::DisplayNode()
 {
@@ -226,7 +218,7 @@ void TwoThreeFourNode::DisplayNode()
 	}
 }
 
-// NOTE: this can potentially return true when a node isn't connected...
+// NOTE: this can potentially return true when a node isn't connected.
 bool TwoThreeFourNode::b_IsLeaf()
 {
 	return (childArray[0] == nullptr) ? true : false;
@@ -241,6 +233,7 @@ bool TwoThreeFourNode::b_IsFull()
 {
 	return (numItems == ORDER - 1) ? true : false;
 }
+// end TwoThreeFourNode ==========================
 
 // ===============================================
 // Tree234
@@ -364,7 +357,6 @@ void Tree234::Split(TwoThreeFourNode* inNode)
 	child3 = inNode->DisconnectChild(3);
 
 	// make new node
-	//TwoThreeFourNode newRight;
 	TwoThreeFourNode* newRightPtr = new TwoThreeFourNode;
 
 	if (inNode == root)
@@ -424,7 +416,7 @@ void Tree234::DisplayPreOrder()
 
 	RecursivePreOrderTraversal(root, 0, 0);
 	cout << endl;
-}
+} // end DisplayPreOrder()
 
 void Tree234::DisplayInOrder()
 {
@@ -433,7 +425,7 @@ void Tree234::DisplayInOrder()
 
 	RecursiveInOrderTraversal(root, 0, 0);
 	cout << endl;
-}
+} // end DisplayInOrder()
 
 void Tree234::DisplayPostOrder()
 {
@@ -442,9 +434,10 @@ void Tree234::DisplayPostOrder()
 
 	RecursivePostOrderTraversal(root, 0, 0);
 	cout << endl;
-}
+} // end DisplayPostOrder()
 
 // Recursive PreOrder Traversal
+// Prints Level number and child numbers.
 void Tree234::RecursivePreOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber)
 {
 	cout << "Level: " << level << " " << "Child: " << childNumber << " " << endl;
@@ -457,7 +450,6 @@ void Tree234::RecursivePreOrderTraversal(TwoThreeFourNode* inNode, int level, in
 	{
 		// if these pointers need to be deleted just let me know.
 		TwoThreeFourNode* nextNode = inNode->GetChild(i);
-
 		if (nextNode != nullptr)
 		{
 			RecursivePreOrderTraversal(nextNode, level + 1, i);
@@ -469,6 +461,8 @@ void Tree234::RecursivePreOrderTraversal(TwoThreeFourNode* inNode, int level, in
 	}
 } // end RecursivePreOrderTraversal()
 
+// Prints all values of the nodes as they are visited via inorder traversal
+// Ignores level number and child number.
 void Tree234::RecursiveInOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber)
 {
 	
@@ -485,6 +479,8 @@ void Tree234::RecursiveInOrderTraversal(TwoThreeFourNode* inNode, int level, int
 
 } // end RecursiveInOrderTraversal()
 
+// Prints all values of the nodes as they are visited via postorder traversal.
+// Ignores level number and child number.
 void Tree234::RecursivePostOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber)
 {
 	if (inNode == nullptr)
@@ -508,7 +504,7 @@ int TwoThreeFourNode::FindKey(int key)
 		index++;
 	}
 	return index;
-}
+} // end FindKey()
 
 void TwoThreeFourNode::Remove(long key)
 {
@@ -559,9 +555,8 @@ void TwoThreeFourNode::Remove(long key)
 
 		return;
 	}
-}
+} // end Remove()
 
-// -
 void TwoThreeFourNode::RemoveFromLeaf(int index)
 {
 	delete(dataItemArray[index]);
@@ -575,11 +570,10 @@ void TwoThreeFourNode::RemoveFromLeaf(int index)
 	numItems--;
 
 	return;
-}
+} // end RemoveFromLeaf()
 
 void TwoThreeFourNode::RemoveFromNonLeaf(int index)
 {
-
 	// cases:
 	// 2a if elements left child has at least two keys, replace the element with
 	// its predecessor.
@@ -629,7 +623,7 @@ void TwoThreeFourNode::RemoveFromNonLeaf(int index)
 	}
 
 	return;
-}
+} // end RemoveFromNonLeaf()
 
 int TwoThreeFourNode::GetPredecessor(int index)
 {
@@ -642,7 +636,7 @@ int TwoThreeFourNode::GetPredecessor(int index)
 
 	// return the last key of the leaf
 	return current->dataItemArray[numItems - 1]->data;
-}
+} // end GetPredecessor()
 
 int TwoThreeFourNode::GetSuccessor(int index)
 {
@@ -654,7 +648,7 @@ int TwoThreeFourNode::GetSuccessor(int index)
 
 	// return first key of the leaf
 	return current->dataItemArray[0]->data;
-}
+} // end GetSuccessor()
 
 // Borrows a key from left sibling and inserts it into childArray[index]
 void TwoThreeFourNode::BorrowFromPrevious(int index)
@@ -686,7 +680,7 @@ void TwoThreeFourNode::BorrowFromPrevious(int index)
 
 	child->numItems += 1;
 	leftSibling->numItems -= 1;
-}
+} // end BorrowFromPrevious()
 
 void TwoThreeFourNode::BorrowFromNext(int index)
 {
@@ -714,7 +708,6 @@ void TwoThreeFourNode::BorrowFromNext(int index)
 	// remove the last key in the array so there are no duplicates
 	rightSibling->RemoveItem();
 
-
 	// Move the child pointers one step behind
 	if (!rightSibling->b_IsLeaf())
 	{
@@ -728,7 +721,7 @@ void TwoThreeFourNode::BorrowFromNext(int index)
 	child->numItems++;
 
 	return;
-}
+} // end BorrowFromNext()
 
 // Merge childArray[index] with childArray[index+1], then free 
 // childArray[index+1] after merging
@@ -745,6 +738,7 @@ void TwoThreeFourNode::Merge(int index)
 	// position 0. Could be unnecessary but it's safer, still need to test more cases.
 	// Since n will not be larger than 3 this nested for loop is acceptable. However, if 
 	// this were a B tree like the one CouchDB uses, n could upwards of 1 Million.
+	// Room for optimization.
 	for (int i = 0; i < ORDER - 1; i++)
 	{
 		if (rightSibling->dataItemArray[i] != nullptr)
@@ -782,8 +776,6 @@ void TwoThreeFourNode::Merge(int index)
 		childArray[i] = nullptr;
 	}
 
-
-
 	child->numItems += rightSibling->numItems+1;
 	numItems--;
 
@@ -791,7 +783,7 @@ void TwoThreeFourNode::Merge(int index)
 	delete(rightSibling);
 
 	return;
-}
+} // end Merge()
 
 // Fills child with keys by borrowing from previous or next
 void TwoThreeFourNode::Fill(int index)
@@ -819,7 +811,7 @@ void TwoThreeFourNode::Fill(int index)
 	}
 
 	return;
-}
+} // end Fill()
 
 void Tree234::RemoveFromTree(long key)
 {
@@ -851,4 +843,4 @@ void Tree234::RemoveFromTree(long key)
 	}
 
 	return;
-}
+} // end RemoveFromTree()

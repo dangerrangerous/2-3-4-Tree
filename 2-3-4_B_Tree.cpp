@@ -30,6 +30,7 @@
 #include "2-3-4_B_Tree.h"
 #include <iostream>
 #include <algorithm>
+#include "Menu.h"
 
 using namespace std;
 
@@ -268,11 +269,13 @@ int Tree234::Find(long key)
 		// if found
 		if ((childNumber = current->FindItem(key)) != -1)
 		{
+			cout << key << " is in the tree." << endl;
 			return childNumber;
 		}
 		// can't find it
 		else if (current->b_IsLeaf())
 		{
+			cout << key << " is not in the tree." << endl;
 			return -1;
 		}
 		// search deeper

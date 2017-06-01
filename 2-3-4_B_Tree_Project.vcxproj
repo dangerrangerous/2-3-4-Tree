@@ -147,12 +147,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2-3-4_B_Tree.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2-3-4_B_Tree.cpp" />
     <ClCompile Include="2-3-4_B_Tree_Project.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

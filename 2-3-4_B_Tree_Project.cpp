@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "2-3-4_B_Tree.h"
+#include "Menu.h"
 #include <iostream>
 
 using namespace std;
@@ -10,6 +11,7 @@ using namespace std;
 int main()
 {
 	Tree234 tree234;
+	Menu menu;
 
 	tree234.Insert(16);
 	tree234.Insert(3);
@@ -25,10 +27,21 @@ int main()
 	tree234.Insert(5);
 	tree234.Insert(6);
 
-	// DisplayTree() is a PreOrder traversal
+	// User menu do while loop
+	do
+	{
+		menu.Display();
+		menu.QueryUser();
+		menu.ProcessCommand(tree234);
+	} while (menu.Continue());
+
+ // DisplayTree() is a PreOrder traversal
+	/*
 	tree234.DisplayPreOrder();
 	tree234.DisplayInOrder();
 	tree234.DisplayPostOrder();
+	*/
+
 
     return 0;
 }

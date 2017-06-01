@@ -1,16 +1,13 @@
-#pragma once
+// 2-3-4_B_Tree.h
+// Brian Keppinger
 
+#pragma once
 
 class DataItem
 {
 public:
 	// should the data be private?
 	long data;
-
-	// prev
-
-	// next
-
 
 	// Default constructor
 	DataItem(void);
@@ -63,7 +60,6 @@ public:
 	int FindKey(int key);
 
 	DataItem* GetItem(int index);
-
 	
 private:
 	static const int ORDER = 4;
@@ -77,8 +73,6 @@ private:
 class Tree234
 {
 public:
-	// TODO: implement Delete(). Inorder, PreOrder, and
-	// PostOrder traversals recursively.
 	// Default constructor
 	Tree234(void);
 	// Default destructor
@@ -101,7 +95,6 @@ private:
 	void RecursivePreOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber);
 	void RecursiveInOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber);
 	void RecursivePostOrderTraversal(TwoThreeFourNode* inNode, int level, int childNumber);
-
 
 	TwoThreeFourNode* root;
 };

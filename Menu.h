@@ -8,7 +8,7 @@
 using namespace std;
 
 enum MenuChoices {
-	Quit, Insert, Remove, Find, Preorder, Inorder, Postorder, Height, NodeCount
+	Quit, Insert, Remove, Find, Preorder, Inorder, Postorder/*, Height , NodeCount*/
 };
 
 class Menu

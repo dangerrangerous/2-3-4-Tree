@@ -43,8 +43,8 @@ void Menu::Display()
 	cout << left << setw(32) << "5: Preorder Traversal" << endl;
 	cout << left << setw(32) << "6: Inorder Traversal" << endl;
 	cout << left << setw(32) << "7: Postorder Traversal" << endl;
-	cout << left << setw(32) << "8: Height" << endl;
-	cout << left << setw(32) << "9: NodeCount" << endl << endl;
+	// cout << left << setw(32) << "8: Height" << endl;
+	// cout << left << setw(32) << "9: NodeCount" << endl << endl;
 
 } // end Display()
 

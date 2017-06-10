@@ -12,7 +12,7 @@ int main()
 {
 	Tree234 tree234;
 	Menu menu;
-
+	/*
 	tree234.Insert(16);
 	tree234.Insert(3);
 	tree234.Insert(8);
@@ -26,7 +26,7 @@ int main()
 	tree234.Insert(2);
 	tree234.Insert(5);
 	tree234.Insert(6);
-
+*/
 	// User menu do while loop
 	do
 	{

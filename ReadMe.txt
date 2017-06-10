@@ -2,39 +2,13 @@
     CONSOLE APPLICATION : 2-3-4_B_Tree_Project Project Overview
 ========================================================================
 
-AppWizard has created this 2-3-4_B_Tree_Project application for you.
+This was created for an advanced data structures class. I did not worry about
+proper deletion of raw pointers as the primary focus was the operation of the tree.
+So don't copy and paste this thinking it won't leak. I left Height() and NodeCount() as
+todo's. Once you figure out that a 2-3-4 tree is a B tree you can find more resources
+to help you if you get stuck.
 
-This file contains a summary of what you will find in each of the files that
-make up your 2-3-4_B_Tree_Project application.
+https://azrael.digipen.edu/~mmead/www/Courses/CS280/Trees-2-3-4-delete.html
 
-
-2-3-4_B_Tree_Project.vcxproj
-    This is the main project file for VC++ projects generated using an Application Wizard.
-    It contains information about the version of Visual C++ that generated the file, and
-    information about the platforms, configurations, and project features selected with the
-    Application Wizard.
-
-2-3-4_B_Tree_Project.vcxproj.filters
-    This is the filters file for VC++ projects generated using an Application Wizard. 
-    It contains information about the association between the files in your project 
-    and the filters. This association is used in the IDE to show grouping of files with
-    similar extensions under a specific node (for e.g. ".cpp" files are associated with the
-    "Source Files" filter).
-
-2-3-4_B_Tree_Project.cpp
-    This is the main application source file.
-
-/////////////////////////////////////////////////////////////////////////////
-Other standard files:
-
-StdAfx.h, StdAfx.cpp
-    These files are used to build a precompiled header (PCH) file
-    named 2-3-4_B_Tree_Project.pch and a precompiled types file named StdAfx.obj.
-
-/////////////////////////////////////////////////////////////////////////////
-Other notes:
-
-AppWizard uses "TODO:" comments to indicate parts of the source code you
-should add to or customize.
-
-/////////////////////////////////////////////////////////////////////////////
+Gives a good walkthrough of the deltion algorithms. I referenced Data Structures & Algorithms
+in Java by Robert Lafore as well to get started. Hope that helps.
